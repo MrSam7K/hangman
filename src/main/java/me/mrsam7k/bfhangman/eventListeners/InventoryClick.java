@@ -2,6 +2,7 @@ package me.mrsam7k.bfhangman.eventListeners;
 
 import me.mrsam7k.bfhangman.Hangman;
 import me.mrsam7k.bfhangman.InventoryMenu;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -29,8 +30,7 @@ public class InventoryClick implements Listener {
         } else if (title.equals("Select a word")) {
             if (item.getType() == Material.BOOK) {
                 player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 2, 1);
-                String word = item.getItemMeta().getDisplayName().replaceAll(" ", "-").toLowerCase();
-                Hangman.startGame(word, player);
+                Hangman.startGame(ChatColor.stripColor(item.getItemMeta().getDisplayName()).replaceAll(" ", "-").toLowerCase(), player);
                 player.closeInventory();
             } else if (item.getType() == Material.POPPY) {
                 player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 2, 1);
