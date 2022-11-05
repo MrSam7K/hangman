@@ -60,9 +60,9 @@ public class Hangman {
         String[] messages;
         if (!win) {
 
-            messages = new String[]{"&c" + Hangman.messageLine(), "&f&lHangman", "", "&eWord was: " + Main.toProperCase(Main.WORD), "&c" + Hangman.messageLine()};
+            messages = new String[]{"&c" + Hangman.messageLine(), "&f&lHangman", "", "&eWord was: " + Main.toProperCase(Main.WORD.replaceAll("-", " ")), "&c" + Hangman.messageLine()};
         } else {
-            messages = new String[]{"&6" + Hangman.messageLine(), "&f&lHangman", "", "&eWord was: " + Main.toProperCase(Main.WORD), "", "&6" + Hangman.messageLine()};
+            messages = new String[]{"&6" + Hangman.messageLine(), "&f&lHangman", "", "&eWord was: " + Main.toProperCase(Main.WORD.replaceAll("-", " ")), "", "&6" + Hangman.messageLine()};
         }
         for (Player p : Bukkit.getOnlinePlayers()) {
             Main.sendCenteredMessage(p, messages);
