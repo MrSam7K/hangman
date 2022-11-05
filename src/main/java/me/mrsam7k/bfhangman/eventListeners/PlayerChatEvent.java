@@ -10,7 +10,7 @@ public class PlayerChatEvent implements Listener {
     @EventHandler
     public void onAsyncPlayerChat(AsyncPlayerChatEvent e) {
         String message = e.getMessage().replaceAll(" ", "-").toLowerCase();
-        if(Hangman.guess(e.getPlayer(), message)){
+        if (Hangman.guess(e.getPlayer(), message)) {
             e.setCancelled(true);
         }
     }

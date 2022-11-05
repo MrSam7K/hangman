@@ -101,8 +101,8 @@ public enum DefaultFontInfo {
     HEART('\u2764', 7),
     BOLD_UNDERSCORE('\u25AC', 3);
 
-    private char character;
-    private int length;
+    private final char character;
+    private final int length;
 
     DefaultFontInfo(char character, int length) {
         this.character = character;
@@ -128,4 +128,5 @@ public enum DefaultFontInfo {
         }
         return DefaultFontInfo.DEFAULT;
     }
+
 }

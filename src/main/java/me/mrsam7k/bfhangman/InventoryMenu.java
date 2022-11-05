@@ -21,7 +21,7 @@ public class InventoryMenu {
     }
 
     public static void modeMenu(Player player){
-        player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 2 ,1);
+        player.playSound(player.getLocation(), Sound.UI_BUTTON_CLICK, 2, 1);
         ItemStack single = new ItemStack(Material.IRON_NUGGET, 1);
         ItemMeta singleMeta = single.getItemMeta();
         singleMeta.setDisplayName(Main.toColor("&3Custom Word"));
