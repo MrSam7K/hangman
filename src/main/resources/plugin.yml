@@ -1,0 +1,12 @@
+name: BF-Hangman
+version: '${version}'
+main: me.mrsam7k.bfhangman.Main
+api-version: 1.18
+
+commands:
+  guess:
+    description: Guesses uhhh hangman letter thing yes
+  hangman:
+    description: Starts hangman game!
+    aliases:
+      - hm
