@@ -1,6 +1,5 @@
 package me.mrsam7k.bfhangman;
 
-
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -14,7 +13,7 @@ public class Hangman {
     }
 
     public static void globalMessage(String msg) {
-        String[] messages = {"&a" + Hangman.messageLine(), "&f&lHangman", "&x&B&2&3&9&2&F" + "\u2764".repeat(Main.HEARTS), "", "&x&f&f&d&9&6&6" + msg, "&eIt's &6" + Hangman.handleGuesser(Main.CURRENT_GUESSER.getName()) + "&e turn to guess.", "", "&e" + Hangman.decodeWord(false, false), "&a" + Hangman.messageLine()};
+        String[] messages = {"&a" + Hangman.messageLine(), "&f&lHangman", "&x&B&2&3&9&2&F" + "\u2764".repeat(Main.HEARTS), "", "&x&f&f&d&9&6&6" + msg, "&eIt's &6" + Hangman.handleGuesser(Main.CURRENT_GUESSER.getName()) + "&e turn to guess.", "", "&e" + Hangman.decodeWord(), "&a" + Hangman.messageLine()};
         for (Player p : Bukkit.getOnlinePlayers()) {
             Main.sendCenteredMessage(p, messages);
         }
@@ -28,7 +27,7 @@ public class Hangman {
             return s + "'s";
     }
 
-    public static String decodeWord(boolean withoutUnderscores, boolean finishMsg) {
+    public static String decodeWord() {
         String word = Main.WORD;
         ArrayList<String> decodedLetters = new ArrayList<>();
         String[] wordLetters = word.split("");
@@ -37,26 +36,11 @@ public class Hangman {
             if (Main.GUESSED_LETTERS.contains(letter)) {
                 decodedLetters.add(letter);
             } else {
-                if (letter.equals("-")) {
-                    decodedLetters.add(" ");
-                } else if (withoutUnderscores) {
-                    decodedLetters.add(" ");
-                } else {
-                    decodedLetters.add("_");
-                }
+                if (letter.equals("-")) decodedLetters.add(" ");
+                else decodedLetters.add("_");
             }
         }
-        if (decodedLetters.get(0).equals(" ")) {
-            Bukkit.broadcastMessage("YES ITS SPACE CRY ABOUT IT I WILL CRY IN CORNER BECAUSE THIS SUCKS HELP");
-            decodedLetters.remove(0);
-            decodedLetters.remove(1);
-        }
-        if (finishMsg) {
-            return Main.toProperCase(String.join("", decodedLetters).replaceAll("-", ""));
-        } else {
-            System.out.println(decodedLetters);
-            return String.join("", decodedLetters);
-        }
+        return String.join("", decodedLetters);
     }
 
     public static void nextGuesser(boolean newGame) {
@@ -76,9 +60,9 @@ public class Hangman {
         String[] messages;
         if (!win) {
 
-            messages = new String[]{"&c" + Hangman.messageLine(), "&f&lHangman", "", "&eWord was: " + Hangman.decodeWord(true, true), "&c" + Hangman.messageLine()};
+            messages = new String[]{"&c" + Hangman.messageLine(), "&f&lHangman", "", "&eWord was: " + Main.toProperCase(Main.WORD), "&c" + Hangman.messageLine()};
         } else {
-            messages = new String[]{"&6" + Hangman.messageLine(), "&f&lHangman", "", "&eWord was: " + Hangman.decodeWord(false, true), "", "&6" + Hangman.messageLine()};
+            messages = new String[]{"&6" + Hangman.messageLine(), "&f&lHangman", "", "&eWord was: " + Main.toProperCase(Main.WORD), "", "&6" + Hangman.messageLine()};
         }
         for (Player p : Bukkit.getOnlinePlayers()) {
             Main.sendCenteredMessage(p, messages);
@@ -124,7 +108,7 @@ public class Hangman {
                         Main.actionBar("&cThis letter was already guessed!", player);
                     } else {
                         Main.GUESSED_LETTERS.addAll(Arrays.asList(word.split("")));
-                        if (!Hangman.decodeWord(false, false).contains("_")) {
+                        if (!Hangman.decodeWord().contains("_")) {
                             Hangman.finishGame(true);
                         } else {
                             Hangman.globalMessage(Hangman.handleGuesser(player.getName()) + " guess: " + word);
